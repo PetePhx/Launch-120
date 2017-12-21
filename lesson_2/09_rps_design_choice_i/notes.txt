@@ -1,0 +1,18 @@
+* is this design, with Human and Computer sub-classes, better? Why, or why not?
+
+  The design is better in the sense that there is less code repetition, as well
+  as better abstraction of concepts by assigning human and computer each to
+  their own respective subclasses.
+
+* what is the primary improvement of this new design?
+
+    More transparent code by assigning different type of players to their
+    respective subclasses.
+
+* what is the primary drawback of this new design?
+
+  The initialize method in the Player class called the set_name instance method
+  without having the method in place. While we don't instantiate Player class
+  directly. This can be a cause of confusion to the code reader.
+
+  An empty set_name method is added for this reason.  
