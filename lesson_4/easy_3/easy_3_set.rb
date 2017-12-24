@@ -88,7 +88,7 @@ end
 
 # If we call Hello.hi we get an error message. How would you fix this?
 
-# A) since hi is an instance method, we can modify the method call to invoke it
+# A) Since hi is an instance method, we can modify the method call to invoke it
 # on an object:
 
 Hello.new.hi
@@ -143,7 +143,7 @@ puts "Question 4"
 # this: I am a tabby cat? (this is assuming that "tabby" is the type we passed
 # in during initialization).
 
-# A) by defining the to_s method to override the default behavior:
+# A) By defining the to_s method to override its inherited default behavior:
 
 class Cat
   def initialize(type)
