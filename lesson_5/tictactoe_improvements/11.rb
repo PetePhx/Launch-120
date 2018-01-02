@@ -6,7 +6,7 @@ Therefore, let's make all other methods in TTTGame private.
 
 =end
 
-# A) Rearranging the TTTGame methods below. 
+# A) Rearranging the TTTGame methods below.
 
 
 class Board
@@ -40,7 +40,7 @@ class Board
   end
 
   def find_markers
-    markers = @squares.values.map(&:marker).uniq - [Square::INITIAL_MARKER]
+    @squares.values.map(&:marker).uniq - [Square::INITIAL_MARKER]
   end
 
   def winning_marker
@@ -74,7 +74,6 @@ class Board
     puts "     |     |"
     puts ""
   end
-
 end
 
 class Square
@@ -205,7 +204,7 @@ class TTTGame
     loop do
       puts "Would you like to play again?"
       answer = gets.chomp.downcase
-      break if %w(y n).include? answer
+      break if %w[y n].include? answer
       puts "Sorry, must be y or n."
     end
     answer == 'y'
