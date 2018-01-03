@@ -6,7 +6,7 @@ Allow the player to pick any marker.
 
 module UiUx
 
-  FIRST_PLAYER = :human # one of [:human, :computer, :choose]
+  FIRST_PLAYER = :choose # one of [:human, :computer, :choose]
   HUMAN_MARKER = :choose # one of ["X" or :choose]
   COMPUTER_MARKER = 'O'
 
@@ -83,7 +83,7 @@ module UiUx
     loop do
       answer = gets.chomp.upcase
       return 'X' if answer.empty?
-      return answer if ('A'..'Z').cover?(answer) && answer != 'X'
+      return answer if ('A'..'Z').cover?(answer) && answer != 'O'
       prompt "Sorry, choose a letter A to Z except O, or just press enter."
     end
   end
