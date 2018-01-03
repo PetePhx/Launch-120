@@ -7,7 +7,7 @@ of them here, in the OO version.
 
 module UiUx
 
-  FIRST_PLAYER = :human # one of [:human, :computer, :choose]
+  FIRST_PLAYER = :choose # one of [:human, :computer, :choose]
   HUMAN_MARKER = 'X'
   COMPUTER_MARKER = 'O'
 
