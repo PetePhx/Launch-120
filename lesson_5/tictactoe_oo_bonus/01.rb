@@ -231,12 +231,12 @@ class Board
 
   def deep_copy
     other_board = Board.new
-    (1..@squares.size).each { |key| other_board[key] = self[key] }
+    (1..9).each { |key| other_board[key] = self[key] }
     other_board
   end
 
   def reset
-    (1..@squares.size).each { |key| @squares[key] = Square.new }
+    (1..9).each { |key| @squares[key] = Square.new }
   end
 end
 
