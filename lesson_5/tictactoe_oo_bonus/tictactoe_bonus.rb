@@ -142,16 +142,14 @@ module Interactable
     puts
   end
 
-  def prompt_play_again?
-    answer = nil
+  def prompt_play_again
     loop do
       puts "Would you like to play again? (y or n)"
       answer = gets.chomp.downcase
-      break if %w[y n].include? answer
+      display_play_again_message if answer == 'y'
+      return answer if %w[y n].include? answer
       puts "Sorry; 'y' or 'n' please!"
     end
-    display_play_again_message if answer == 'y'
-    answer == 'y'
   end
 
   def display_play_again_message
@@ -337,7 +335,7 @@ class TTTGame
     computer.set_name
     loop do
       play_one_set
-      break unless prompt_play_again?
+      break unless play_again?
     end
     display_goodbye_message(human.name)
   end
@@ -411,6 +409,10 @@ class TTTGame
                       when :human then :computer
                       when :computer then :human
                       end
+  end
+
+  def play_again?
+    prompt_play_again == 'y'
   end
 
   def reset
