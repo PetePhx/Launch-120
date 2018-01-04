@@ -2,7 +2,6 @@
 
 # rubocop:disable Metrics/ModuleLength
 module Interactable
-
   BANNER = '
    _______  _           _______                  _______
   (_______)(_)         (_______)                (_______)
@@ -140,15 +139,6 @@ module Interactable
     when :computer then prompt "#{c_name} is the grand winner... not #{h_name}!"
     end
     puts
-  end
-
-  def prompt_play_again
-    loop do
-      puts "Would you like to play again? (y or n)"
-      answer = gets.chomp.downcase
-      return answer if %w[y n].include? answer
-      puts "Sorry; 'y' or 'n' please!"
-    end
   end
 
   def display_play_again_message
@@ -411,9 +401,15 @@ class TTTGame
   end
 
   def play_again?
-    bool = (prompt_play_again == 'y')
-    display_play_again_message if bool
-    bool
+    loop do
+      puts "Would you like to play again? (y or n)"
+      answer = gets.chomp.downcase
+      if %w[y yes n no].include? answer
+        display_play_again_message if answer[0] == 'y'
+        return answer[0] == 'y'
+      end
+      puts "Sorry; 'y' or 'n' please!"
+    end
   end
 
   def reset
