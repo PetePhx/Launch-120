@@ -1,10 +1,7 @@
 # The Tic-Tac-Toe game with bonus features
 
 # rubocop:disable Metrics/ModuleLength
-module Displayable
-  FIRST_PLAYER = :choose # one of [:human, :computer, :choose]
-  HUMAN_MARKER = :choose # one of ["X" or :choose]
-  COMPUTER_MARKER = 'O'
+module Interactable
 
   BANNER = '
    _______  _           _______                  _______
@@ -41,15 +38,6 @@ module Displayable
     gets
   end
 
-  def first_player
-    case FIRST_PLAYER
-    when :choose
-      prompt_first_player
-    else
-      FIRST_PLAYER
-    end
-  end
-
   def prompt_first_player
     prompt "Please select who plays first! player (p) or computer (c):"
     prompt "Hit 'Enter' for default: player first."
@@ -70,13 +58,6 @@ module Displayable
     prompt "Hit 'Enter' for the default name: 'Player'"
     answer = gets.chomp.strip[0, 15]
     answer.empty? ? 'Player' : answer
-  end
-
-  def set_player_marker
-    case HUMAN_MARKER
-    when :choose then prompt_player_marker
-    else HUMAN_MARKER
-    end
   end
 
   def prompt_player_marker
@@ -161,7 +142,7 @@ module Displayable
     puts
   end
 
-  def play_again?
+  def prompt_play_again?
     answer = nil
     loop do
       puts "Would you like to play again? (y or n)"
@@ -287,14 +268,19 @@ class Player
 end
 
 class Human < Player
-  include Displayable
+  include Interactable
+  HUMAN_MARKER = :choose # one of ["X" or :choose]
+
   def move(board)
     square = prompt_player_move(board.unmarked_keys)
     board[square] = marker
   end
 
   def set_marker
-    @marker = set_player_marker
+    @marker = case HUMAN_MARKER
+              when :choose then prompt_player_marker
+              else HUMAN_MARKER
+              end
   end
 
   def set_name
@@ -304,6 +290,11 @@ end
 
 class Computer < Player
   COMPUTER_NAMES = ['R2D2', 'Hal', 'Sonny']
+  COMPUTER_MARKER = 'O'
+
+  def initialize(marker = COMPUTER_MARKER)
+    @marker = marker
+  end
 
   def move(board)
     winning_square = board.next_winning_square(marker)
@@ -326,14 +317,15 @@ class Computer < Player
 end
 
 class TTTGame
-  include Displayable
+  include Interactable
+  FIRST_PLAYER = :choose # one of [:human, :computer, :choose]
 
   attr_reader :board, :human, :computer
 
   def initialize
     @board = Board.new
     @human = Human.new('')
-    @computer = Computer.new(COMPUTER_MARKER)
+    @computer = Computer.new
     @scores = {}
   end
 
@@ -345,12 +337,21 @@ class TTTGame
     computer.set_name
     loop do
       play_one_set
-      break unless play_again?
+      break unless prompt_play_again?
     end
     display_goodbye_message(human.name)
   end
 
   private
+
+  def first_player
+    case FIRST_PLAYER
+    when :choose
+      prompt_first_player
+    else
+      FIRST_PLAYER
+    end
+  end
 
   def play_one_set
     reset_scores
@@ -387,12 +388,10 @@ class TTTGame
     when human.marker then :human
     when computer.marker then :computer
     end
-    # nil
   end
 
   def update_scores
-    return if winner.nil?
-    @scores[winner] += 1
+    @scores[winner] += 1 unless winner.nil?
   end
 
   def human_turn?
