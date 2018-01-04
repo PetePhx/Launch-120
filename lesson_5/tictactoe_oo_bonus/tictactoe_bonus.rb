@@ -325,6 +325,7 @@ class TTTGame
     loop do
       play_one_set
       break unless play_again?
+      display_play_again_message
     end
     display_goodbye_message(human.name)
   end
@@ -404,10 +405,7 @@ class TTTGame
     loop do
       puts "Would you like to play again? (y or n)"
       answer = gets.chomp.downcase
-      if %w[y yes n no].include? answer
-        display_play_again_message if answer[0] == 'y'
-        return answer[0] == 'y'
-      end
+      return answer[0] == 'y' if %w[y yes n no].include? answer
       puts "Sorry; 'y' or 'n' please!"
     end
   end
