@@ -375,10 +375,9 @@ class TTTGame
       clear_and_display(board)
       current_player_moves
       break if board.someone_won? || board.full?
-      clear_and_display(board) if human_turn?
     end
     clear_and_display(board)
-    update_scores(winner) if winner
+    update_scores
     display_result(winner, human.name, computer.name, @scores)
   end
 
@@ -390,12 +389,11 @@ class TTTGame
     case board.winning_marker
     when human.marker then :human
     when computer.marker then :computer
-    else
-      nil
     end
   end
 
-  def update_scores(winner)
+  def update_scores
+    return if winner.nil?
     @scores[winner] += 1
   end
 
