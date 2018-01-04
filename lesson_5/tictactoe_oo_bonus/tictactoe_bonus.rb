@@ -146,7 +146,6 @@ module Interactable
     loop do
       puts "Would you like to play again? (y or n)"
       answer = gets.chomp.downcase
-      display_play_again_message if answer == 'y'
       return answer if %w[y n].include? answer
       puts "Sorry; 'y' or 'n' please!"
     end
@@ -412,7 +411,9 @@ class TTTGame
   end
 
   def play_again?
-    prompt_play_again == 'y'
+    bool = (prompt_play_again == 'y')
+    display_play_again_message if bool
+    bool
   end
 
   def reset
