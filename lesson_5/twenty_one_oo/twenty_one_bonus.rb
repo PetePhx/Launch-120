@@ -1,5 +1,3 @@
-require 'pry'
-
 module Display
   BANNER = <<-BNR
 ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥
@@ -21,24 +19,29 @@ module Display
 ♦ ♣ ♠                                     ♣ ♠ ♥
 ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥\n
 BNR
-  # rubocop: disable Style/LineEndConcatenation
-  RULES_BANNER = \
-    "\n" +
-    '♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥    R U L E S    ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♦' + "\n" +
-    '♦ ' + ' ' * 43 + ' ♦' + "\n" +
-    '♦ ' + 'The goal is to get close to number'.center(43) + ' ♦' + "\n" +
-    '♦ ' + '21 without going over, i.e. \'busted\'.'.center(43) + ' ♦' + "\n" +
-    '♦ ' + 'Number cards 2 to 10 have face values.'.center(43) + ' ♦' + "\n" +
-    '♦ ' + 'Jack/Queen/King each count as 10. Ace '.center(43) + ' ♦' + "\n" +
-    '♦ ' + 'counts as 1 or 11, depending on hand.'.center(43) + ' ♦' + "\n" +
-    '♦ ' + 'Higher hand wins except when busted.'.center(43) + ' ♦' + "\n" +
-    '♦ ' + '"Hit" to get extra card(s). Otherwise'.center(43) + ' ♦' + "\n" +
-    '♦ ' + '"Stay". Player who wins five rounds'.center(43) + ' ♦' + "\n" +
-    '♦ ' + 'wins the game. Good Luck!'.center(43) + ' ♦' + "\n" +
-    '♦ ' + '(Bonus: Hitting \'O\' shows the odds.)'.center(43) + ' ♦' + "\n" +
-    '♦ ' + ' ' * 43 + ' ♦' + "\n" +
-    '♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♦' + "\n\n"
-  # rubocop: enable Style/LineEndConcatenation
+
+  RULES_BANNER = "
+♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥    R U L E S    ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♦
+♦                                             ♦
+♦ #{'The objective is to get as close to 21'.center(43)} ♦
+♦ #{'as possible without going over, i.e.'.center(43)} ♦
+♦ #{' getting \'busted\'.'.center(43)} ♦
+♦                                             ♦
+♦ #{'Number cards 2 to 10 have face values.'.center(43)} ♦
+♦ #{'Jack/Queen/King each count as 10. Ace '.center(43)} ♦
+♦ #{'counts as 1 or 11, depending on hand.'.center(43)} ♦
+♦ #{'Higher hand wins except when busted.'.center(43)} ♦
+♦ #{'\'Hit\' to get extra card(s). Otherwise'.center(43)} ♦
+♦ #{'simply \'Stay\'.'.center(43)} ♦
+♦                                             ♦
+♦ #{'Player who wins FIVE (5) rounds wins'.center(43)} ♦
+♦ #{'the game. GOOD LUCK!'.center(43)} ♦
+♦                                             ♦
+♦ #{'Bonus: The \'odds\' option displays'.center(43)} ♦
+♦ #{'the odds of win/loss/tie. '.center(43)} ♦
+♦                                             ♦
+♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♦\n\n"
+
   END_BANNER = '
 ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥
 ♦ ♣ ♠                                     ♣ ♠ ♥
@@ -138,7 +141,7 @@ module Simulation
   def sim_one_round(player, dealer, choice)
     deck = Deck.new
     sim_player = player.deep_copy
-    sim_dealer = dealer.deep_copy # simulated
+    sim_dealer = dealer.deep_copy
     sim_dealer.cards.pop # unknown second card discarded
     deck.cards -= sim_player.cards + sim_dealer.cards # deck updated
     sim_dealer.hit deck # unknown card replaced
