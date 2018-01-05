@@ -2,25 +2,25 @@ require 'pry'
 
 module Display
   BANNER = <<-BNR
-  ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥
-  ♣  _____                                      ♦
-  ♠ |A .  | _____                               ♣
-  ♥ | /.\\ ||A ^  | ██████╗  ██   _____          ♠
-  ♦ |(_._)|| / \\ | ╚════██╗███║ |A _  | _____   ♥
-  ♣ |  |  || \\ / |  █████╔╝╚██║ | ( ) ||A_ _ |  ♦
-  ♠ |____V||  .  | ██╔═══╝  ██║ |(_'_)||( v )|  ♣
-  ♥        |____V| ███████╗ ██║ |  |  || \\ / |  ♠
-  ♦                ╚══════╝ ╚═╝ |____V||  .  |  ♥
-  ♣                                    |____V|  ♦
-  ♠                                             ♣
-  ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥
+♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥
+♣  _____                                      ♦
+♠ |A .  | _____                               ♣
+♥ | /.\\ ||A ^  | ██████╗  ██   _____          ♠
+♦ |(_._)|| / \\ | ╚════██╗███║ |A _  | _____   ♥
+♣ |  |  || \\ / |  █████╔╝╚██║ | ( ) ||A_ _ |  ♦
+♠ |____V||  .  | ██╔═══╝  ██║ |(_'_)||( v )|  ♣
+♥        |____V| ███████╗ ██║ |  |  || \\ / |  ♠
+♦                ╚══════╝ ╚═╝ |____V||  .  |  ♥
+♣                                    |____V|  ♦
+♠                                             ♣
+♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥
 
-  ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥
-  ♦ ♣ ♠                                     ♣ ♠ ♥
-  ♦ ♣         WELCOME TO TWENTY-ONE!          ♠ ♥
-  ♦ ♣ ♠                                     ♣ ♠ ♥
-  ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥\n
-  BNR
+♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥
+♦ ♣ ♠                                     ♣ ♠ ♥
+♦ ♣         WELCOME TO TWENTY-ONE!          ♠ ♥
+♦ ♣ ♠                                     ♣ ♠ ♥
+♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥\n
+BNR
   # rubocop: disable Style/LineEndConcatenation
   RULES_BANNER = \
     "\n" +
@@ -40,11 +40,11 @@ module Display
     '♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♦' + "\n\n"
   # rubocop: enable Style/LineEndConcatenation
   END_BANNER = '
-  ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥
-  ♦ ♣ ♠                                     ♣ ♠ ♥
-  ♦ ♣   Thank you for playing 21. Goodbye!    ♠ ♥
-  ♦ ♣ ♠                                     ♣ ♠ ♥
-  ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥'
+♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥
+♦ ♣ ♠                                     ♣ ♠ ♥
+♦ ♣   Thank you for playing 21. Goodbye!    ♠ ♥
+♦ ♣ ♠                                     ♣ ♠ ♥
+♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥'
 
   SMALL_BANNER = "\n♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♦"
   WON_BANNER = "\n\n ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ YOU WON! ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥"
@@ -62,6 +62,7 @@ module Display
   end
 
   def display_results(winner)
+    puts SMALL_BANNER
     case winner
     when :player
       puts "\n" + "YOU WON THIS ROUND! （╯ʘ‿ʘ)╯ ︵ (\\ .o.)/".center(47)
@@ -360,7 +361,7 @@ class Game
 
   def play_again?
     loop do
-      puts "Would you like to play again? (y or n)"
+      puts "\n\n\nWould you like to play again? (y or n)"
       answer = gets.chomp.downcase
       return answer[0] == 'y' if %w[y yes n no].include? answer
       puts "Sorry; 'y' or 'n' please!"
