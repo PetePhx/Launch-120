@@ -141,7 +141,7 @@ module Simulation
     deck.cards -= sim_player.cards + sim_dealer.cards # deck updated
     sim_dealer.hit deck # unknown card replaced
     sim_player.hit deck if choice == :hit
-    sim_dealer.move(deck, display: false)
+    sim_dealer.move(deck)
     sim_winner(sim_player, sim_dealer)
   end
 
@@ -260,7 +260,7 @@ end
 
 class Dealer < Participant
   DEALER_THRESHOLD = 17
-  def display_initial
+  def display_partial
     puts "\nThe dealer has: #{cards[0]} and an unknown card."
   end
 
@@ -268,12 +268,16 @@ class Dealer < Participant
     puts "The dealer has: #{cards.join(' and ')}. Dealer total: #{hand_total}"
   end
 
-  def move(deck, display: true)
+  def move(deck)
     while hand_total < DEALER_THRESHOLD
       hit deck
     end
-    display_cards if display
-    puts "The dealer busted!" if display && busted?
+  end
+
+  def move_and_display(deck)
+    move(deck)
+    display_cards
+    puts "The dealer busted!" if busted?
   end
 end
 
@@ -321,7 +325,7 @@ class Game
       display_odds(player, dealer)
       show_initial_cards
     end
-    dealer.move(deck)
+    dealer.move_and_display(deck)
     display_results(winner)
   end
 
@@ -339,7 +343,7 @@ class Game
   end
 
   def show_initial_cards
-    dealer.display_initial
+    dealer.display_partial
     player.display_cards
   end
 
