@@ -184,12 +184,7 @@ class Deck
   end
 
   def reset
-    @cards = []
-    RANKS.product(SUITS).each do |rank, suit|
-      card = Card.new(rank, suit)
-      @cards << card
-    end
-    @cards.shuffle!
+    @cards = RANKS.product(SUITS).map { |pair| Card.new(*pair) }.shuffle
   end
 end
 
