@@ -102,7 +102,6 @@ end
 module Simulation
   SIM_ROUNDS = 4_000
 
-  # rubocop: disable Metrics/AbcSize
   def display_odds(player, dealer)
     puts "Estimating the odds... please wait a few seconds..."
     odds = estimate_odds(player, dealer)
@@ -110,30 +109,26 @@ module Simulation
       arr.map { |elm| (elm.round(1).to_s + '%').center(15) }
     end
     ["STAY", "HIT"].each_with_index do |choice, idx|
-      puts "\n"
-      puts "+-----------------------------------------------+"
-      puts "|#{choice.center(47)}|"
-      puts "+---------------+---------------+---------------+"
-      puts "|#{'WIN'.center(15)}|#{'TIE'.center(15)}|#{'LOSE'.center(15)}|"
-      puts "+---------------+---------------+---------------+"
-      puts "|#{odds_str[idx][0]}|#{odds_str[idx][1]}|#{odds_str[idx][2]}|"
-      puts "+---------------+---------------+---------------+"
+      puts "
++-----------------------------------------------+
+|#{choice.center(47)}|
++---------------+---------------+---------------+
+|#{['WIN'.center(15), 'TIE'.center(15), 'LOSE'.center(15)].join('|')}|
++---------------+---------------+---------------+
+|#{odds_str[idx].join('|')}|
++---------------+---------------+---------------+"
     end
   end
-  # rubocop: enable Metrics/AbcSize
 
   def estimate_odds(player, dealer)
-    odds_hash = { stay: [0, 0, 0], hit: [0, 0, 0] } # [win, tie, lose] outcomes
+    odds_hash = { stay: { player: 0, tie: 0, dealer: 0 },
+                  hit: { player: 0, tie: 0, dealer: 0 } }
     [:stay, :hit].each do |choice|
       SIM_ROUNDS.times do
-        case sim_one_round(player, dealer, choice)
-        when :player then odds_hash[choice][0] += 1
-        when :tie then odds_hash[choice][1] += 1
-        when :dealer then odds_hash[choice][2] += 1
-        end
+        odds_hash[choice][sim_one_round(player, dealer, choice)] += 1
       end
     end
-    odds_hash.values.map do |arr|
+    odds_hash.values.map(&:values).map do |arr|
       arr.map { |elm| (100 * elm).fdiv(SIM_ROUNDS) }
     end
   end
