@@ -1,12 +1,10 @@
 #  	Object Oriented Programming
 
-This is the repository for the Launch School course 120 lessons and exercises.
-
 A favorite part was implementing the object-oriented version of the game 21, which is a simplified version of black jack. I have added a small simulation module to the game, where besides 'hit' and 'stay', the player had the option to see the odds of win/loss/tie for hit and stay.
 
 Source:
 
-https://github.com/PetePhx/Launch-120/blob/master/lesson_5/twenty_one_oo/twenty_one_bonus.rb
+https://github.com/PetePhx/object-oriented-ruby/blob/master/lesson_5/twenty_one_oo/twenty_one_bonus.rb
 
 ```
 The dealer has: [♦ King ♦] and an unknown card.
